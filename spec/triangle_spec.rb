@@ -33,11 +33,11 @@ describe 'Triangle' do
   end
 
   it 'knows that scalene triangles have no equal sides in descending order either' do
-    expect(Triangle.new(5, 4, 2).kind).to eq(:scalene)
+    expect(Triangle.new(5, 4, 3).kind).to eq(:scalene)
   end
 
   it 'knows that very small triangles are legal' do
-    expect(Triangle.new(0.4, 0.6, 0.3).kind).to eq(:scalene)
+    expect(Triangle.new(0.4, 0.35, 0.3).kind).to eq(:scalene)
   end
 
   it 'knows that triangles with no size are illegal' do
