@@ -12,15 +12,14 @@ class Triangle
   end
 
   def kind
+    validate?
   if self.is_equilateral?
      @type = :equilateral
    elsif  self.is_isosceles?
      @type = :isosceles
-   elsif self.is_scalene?
+   else
       @type = :scalene
-    else
-        raise TriangleError
-      end
+    end
   end
 
   def is_equilateral?
@@ -31,12 +30,15 @@ class Triangle
    @side2 == @side3 || @side1 == @side3 || @side1 == @side2
   end
 
-  def is_scalene?
-    @side1 != @side2 && @side2 != @side3 && @side1 + @side2 > @side3 && @side2 + @side3 > @side1 && @side1 + @side3 > @side2
-  end
+#no longer required
+  # def is_scalene?
+  #
+  # end
 
-  def inequality?
-    @side1 + @side2 > @side3 && @side2 + @side3 > @side1 && @side1 + @side3 > @side2
+  def validate? # stole validate method from solutions
+    real_triangle = [(side1 + side2 > side3), (side1 + side3 > side2), (side2 + side3 > side1)]
+    [side1, side2, side3].each { |s| real_triangle << false if s <= 0 }
+    raise TriangleError if real_triangle.include?(false)
   end
 
   class TriangleError < StandardError
@@ -45,4 +47,3 @@ class Triangle
 end
 
 #
-Pry.start
